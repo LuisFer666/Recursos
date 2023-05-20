@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { DatosService } from '../services/tabla/datos.service';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Subject } from 'rxjs';
+import { RecursosService } from '../services/tabla/recursos.service';
 
 @Component({
   selector: 'app-tabla',
@@ -8,12 +8,12 @@ import { Subject } from 'rxjs';
   styleUrls: ['./tabla.component.css']
 })
 export class TablaComponent implements OnInit {
-  datos: any = []
+  Recursos: Recurso[] = [];
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
-  constructor(private service: DatosService) { }
+  constructor(private service: RecursosService, private ref: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -27,11 +27,23 @@ export class TablaComponent implements OnInit {
 
   getDatos(): void {
     this.service
-      .datos()
-      .subscribe((response: any) => {
-        this.datos = response;
+      .recursos()
+      .subscribe((response: Recurso[]) => {
+        this.Recursos = response;
+        this.ref.detectChanges();
         this.dtTrigger.next(null);
+        console.table(this.Recursos);
+        
+        
       });
   }
+}
 
+export interface Recurso {
+  idRecurso: number;
+  nombre: string;
+  idArea: number;
+  idClasificacion: number;
+  idNivel: number;
+  link: string;
 }
