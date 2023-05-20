@@ -10,7 +10,6 @@ export class RecursosService {
   constructor(private http: HttpClient) { }
 
   recursos() {
-    // 'http://ferbserver.ddns.net:7116/recurso/recursos'
-    return this.http.get<Recurso[]>('https://github.com/LuisFer666/LaborCamp/raw/main/JSON/getAllRecursos.json')
+    return this.http.get<Recurso[]>('http://ferbserver.ddns.net:7116/recurso/recursos')
   }
 }

@@ -1,26 +1,37 @@
 <div class="container">
     <div class="card m-5 p-3">
+        <h4 class="card-title p-3">Elige un area para filtrar el contenido</h4>
+
+        <ul class="nav nav-underline">
+            <li class="nav-item" *ngFor="let area of Areas">
+                <a class="nav-link" href="#">{{area.nombre}}</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card m-5 p-3">
         <div class="card-body">
-            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped table-hover">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                class="table table-bordered table-striped table-hover">
                 <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Area</th>
-                    <th>Clasificacion</th>
-                    <th>Nivel</th>
-                    <th>Link</th>
-                </tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Area</th>
+                        <th>Clasificacion</th>
+                        <th>Nivel</th>
+                        <th>Link</th>
+                    </tr>
                 </thead>
                 <tbody *ngIf="Recursos">
-                <tr *ngFor="let recurso of Recursos">
-                    <td>{{ recurso.idRecurso }}</td>
-                    <td>{{ recurso.nombre }}</td>
-                    <td>{{ recurso.idArea }}</td>
-                    <td>{{ recurso.idClasificacion }}</td>
-                    <td>{{ recurso.idNivel }}</td>
-                    <td><a href="{{ recurso.link }}" target="_blank">Link</a></td>
-                </tr>
+                    <tr *ngFor="let recurso of Recursos">
+                        <td>{{ recurso.idRecurso }}</td>
+                        <td>{{ recurso.nombre }}</td>
+                        <td>{{ parseArea(recurso.idArea) }}</td>
+                        <td>{{ recurso.idClasificacion }}</td>
+                        <td>{{ recurso.idNivel }}</td>
+                        <td><a href="{{ recurso.link }}" target="_blank">Link</a></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
